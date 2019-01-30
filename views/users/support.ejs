@@ -1,0 +1,47 @@
+<%- include('../common/header') -%>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <form class="form-signin  " action="/support" method="post">
+                <div class="text-center mb-4">
+                    <h1>
+                        Support Form
+                    </h1>
+                </div>
+                
+                <div class="form-label-group">
+                    <label for="inputNmae">Name</label>
+                    <input type="text" id="inputNmae" class="form-control" placeholder="Name" required="" autofocus="" name="name">
+                    <br>
+                </div>
+
+                <div class="form-label-group">
+                    <label for="inputEmail">Email Address</label>
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" name="email">
+                    <br>
+                </div>
+
+                <div class="form-label-group">
+                    <label for="inputSupport">Subject</label>
+                    <input type="text" id="inputSupport" class="form-control" placeholder="Subject" required="" autofocus="" name="subject">
+                    <br>
+                </div>
+                
+                <div class="form-label-group">
+                    <label for="inputMessage">Message</label>
+                    <textarea name="message" id="inputMessage" class="form-control" rows="5"></textarea>
+                    <br>
+                </div>
+                
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    Send
+                </button>
+                <p class="mt-5 mb-3 text-muted text-center"></p>
+            </form>
+        </div>
+        
+    </div>
+
+
+
+<%- include('../common/footer') -%>      

@@ -1,0 +1,52 @@
+<%- include('../common/header') -%>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <form class="form-register  " action="/auth/register" method="post">
+                <div class="text-center mb-4">
+                    <h1>
+                        Create New User.
+                    </h1>
+                </div>
+                
+                <div class="form-label-group">
+                    <label for="inputUserName">User Name</label>
+                    <input type="text" id="inputUserName" class="form-control" placeholder="User Name" required="" autofocus="" name="name">
+                    <br>
+                </div>
+
+                <div class="form-label-group">
+                    <label for="inputEmail">Email Address</label>
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" name="email">
+                    <br>
+                </div>
+                
+                <div class="form-label-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" name="password">
+                    <br>
+                </div>
+
+                <!-- <div class="form-label-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Password" required="">
+                    <br>
+                </div> -->
+                
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    Register Now
+                </button>
+                <p class="mt-5 mb-3 text-muted text-center">
+                    Already have an account 
+                    <a href="/auth/login">
+                        Login
+                    </a>
+                </p>
+            </form>
+        </div>
+        
+    </div>
+
+
+
+<%- include('../common/footer') -%>      

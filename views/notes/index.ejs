@@ -1,0 +1,142 @@
+<%- include('../common/header') -%>
+<div class="row">
+  <div class="col-md-10">
+    <h2>My Money Notes</h2>
+    <div class="btn-group" role="group" aria-label="Tabs">
+      <a href="/notes/?type=0" type="button" class="btn btn-primary  <%- type==0?'active':'' -%>" >All</a>
+      <a href="/notes/?type=1" type="button" class="btn btn-primary <%- type==1?'active':'' -%>">Expense</a>
+      <a href="/notes/?type=2" type="button" class="btn btn-primary <%- type==2?'active':'' -%>">Income</a>      
+      <a href="/notes/?type=3" type="button" class="btn btn-primary <%- type==3?'active':'' -%>">Receivable</a>
+    </div>
+    
+  </div>
+  <div class="col-md-2">
+    <br>
+    <a href="/notes/create" class="btn btn-primary">Add New</a>
+  </div> <!-- end of row -->
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <br>
+    <form action="" >
+      <div class="row">
+        <div class="col-md-4">
+          <input type="text" name="key_word" class="form-control" placeholder="Enter Keyword" value="<%= key_word %>">
+        </div>
+        <div class="col-md-3">
+          <input type="date" name="from_date" class="form-control" value="<%= from_date %>" placeholder="From Date">
+        </div>
+        <div class="col-md-3">
+          <input type="date" name="to_date" class="form-control" value="<%= to_date %>" placeholder="To Date">
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary">Search</button>
+          <a href="/notes/" class="btn btn-default">Clear</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row"> <!-- start new row -->
+  <div class="col-md-12">
+    <br>
+    <table class="table table-striped">
+      <tr>
+        <th>Title</th>
+        <th>Amount</th>
+        <th>Currency</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Attachment</th>
+        <th>Action</th>
+      </tr>
+      
+      <% if(transaction.length > 0) { %>
+        <% for(var i=0; i<transaction.length; i++){ %>
+          <%if ( transaction[i].type == 1 ) { 
+            var clsName = 'btn-danger'; 
+            var type = 'Expense';
+          } %>
+          <%if ( transaction[i].type == 2 ) { 
+            var clsName = 'bg-success'; 
+            var type = 'Income';
+            
+          } %>
+          <%if ( transaction[i].type == 3 ) {             
+            var clsName = 'bg-primary'; 
+            var type = 'Receivable';
+          } %>
+          <tr >
+            <td>
+              <%- transaction[i].title -%>
+            </td>
+            <td><%- transaction[i].amount -%></td>
+            <td><%- transaction[i].currency == 1 ? 'MMK' : 'SGD' -%></td>
+            <td><%- transaction[i].date -%></td>
+            <td>
+              <span class="label px-2 py-1 <%- clsName -%>">
+                <%- type -%>
+              </span>
+            </td>
+            <td width="20%">
+
+              <% if(transaction[i].attachment){ %>
+                <img src="/uploads/notes/<%= transaction[i].attachment %>" alt="<%= transaction[i].attachment %>" class="img-fluid">
+              <% }else{ %>
+                -
+              <% } %>
+
+            </td>
+            <td>
+              <a href="/notes/transaction/<%- transaction[i].id -%>" class="btn btn-sm btn-info">Edit</a>
+              <a href="/notes/transaction/<%- transaction[i].id -%>/delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure')">Remove</a>
+            </td>
+          </tr>
+          <% } %>
+          <% }else{ %>
+            <tr>
+              <td colspan="6  text-center bg-warning">
+                No Data.
+              </td>
+            </tr>
+            
+            <% } %>
+            
+          </table>
+          
+        </div>
+      </div>  <!-- end of row -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <span class="btn btn-danger">Total Expense : <%= totalExpense %></span>
+          <span class="btn btn-success">Total Income : <%= totalIncome %></span>
+          <span class="btn btn-primary">Total Receivable : <%= totalReceivable %> </span>
+          <span class="btn btn-primary">Current Balance : <%= currentBalance %> </span>
+          <span class="btn btn-primary">Expected Balance :</span>
+        </div>
+      </div>
+      <br>
+
+      <div class="row ">
+        <div class="col-md-12">
+            
+              <nav aria-label="Page navigation justify-content-center">
+                <ul class="pagination">
+                    <% if(pagination.hasPrevPage) { %>
+                      <li class="page-item"><a class="page-link" href="/notes?page=<%= pagination.hasPrevPage %>">Previous</a></li>
+                    <% } %>
+                  <% for(var i = 1; i<= pagination.totalPages; i++){ %>
+                    <li class="page-item"><a class="page-link" href="/notes?page=<%= i %>""><%= i %></a></li>
+                  <% } %>
+                  <% if(pagination.hasNextPage) { %>
+                    <li class="page-item"><a class="page-link" href="/notes?page=<%= pagination.hasNextPage %>">Next</a></li>
+                  <% } %>
+                  
+                </ul>
+              
+            </center>
+        </div>
+      </div>
+      <%- include('../common/footer') -%>
+      

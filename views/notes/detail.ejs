@@ -1,0 +1,65 @@
+<%- include('../common/header') -%>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 ">
+        <br>        
+        <form action="/notes/transaction/<%- transaction.id -%>/update" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" placeholder="Title" name="title" list="titles" value="<%- transaction.title -%>">
+                <datalist id="titles">
+                    <option value="Lunch">
+                    <option value="Dinner">
+                    <option value="Salary">
+                </datalist>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" class="form-control" id="amount" placeholder="Amount" name="amount" value="<%- transaction.amount -%>" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="currency">Currency</label>
+                <select class="form-control" id="currency" name="currency">                    
+                    <% for(var i=1; i<currencies.length; i++){ %>
+                        <option value="<%= i %>" <%- transaction.currency == i ? 'selected' : '' -%> ><%= currencies[i] %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                    <label for="Type">Type</label>                    
+                    <select class="form-control" id="type" name="type">
+                        <% for(var i=1; i<types.length; i++){ %>
+                            <option value="<%= i %>" <%- transaction.type == i ? 'selected' : '' -%> ><%= types[i] %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+            <div class="form-group">
+                <label for="Date">Date</label>
+                <input type="date" name="date" class="form-control" id="Date" placeholder="Date" value="<%- transaction.date -%>">
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Attachment">Attachment</label>
+                            <input type="file" name="attachment" class="form-control" id="Attachment" placeholder="Attachment">
+                        </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="/uploads/notes/<%= transaction.attachment %>" alt="" class="img-fluid">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
+        </form>
+        <a href="/notes" class="btn btn-default ">Back To List</a>        
+    </div>
+</div>
+<script>
+document.getElementById('Date').valueAsDate = new Date(transaction.date);
+</script>
+<%- include('../common/footer') -%>
